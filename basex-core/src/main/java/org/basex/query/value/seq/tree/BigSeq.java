@@ -120,7 +120,7 @@ final class BigSeq extends TreeSeq {
       }
 
       // extract a new left digit from the middle
-      final Item[] head = ((LeafNode) middle.head()).values;
+      final Item[] head = ((LeafNode) middle.head()).values();
       final int r = head.length, n = l - 1 + r;
 
       if(r > MIN_LEAF) {
@@ -165,7 +165,7 @@ final class BigSeq extends TreeSeq {
       }
 
       // extract a new right digit from the middle
-      final Item[] last = ((LeafNode) middle.last()).values;
+      final Item[] last = ((LeafNode) middle.last()).values();
       final int l = last.length, n = l + r - 1;
 
       if(l > MIN_LEAF) {
@@ -196,7 +196,7 @@ final class BigSeq extends TreeSeq {
     }
 
     // tree height might change
-    final Item[] mid = ((PartialLeafNode) slice.getPartial()).elems;
+    final Item[] mid = ((PartialLeafNode) slice.getPartial()).values();
     final int l = left.length, m = mid.length, r = right.length;
 
     if(l > r) {
@@ -285,7 +285,7 @@ final class BigSeq extends TreeSeq {
       final TreeSlice<Item, Item> slice = middle.slice(off, inMiddle);
       // only a partial leaf, merge with digits
       if(!slice.isTree()) {
-        final Item[] single = ((PartialLeafNode) slice.getPartial()).elems;
+        final Item[] single = ((PartialLeafNode) slice.getPartial()).values();
         if(inLeft > 0) {
           final Item[] out = slice(left, (int) offset, left.length + single.length);
           Array.copyFromStart(single, single.length, out, inLeft);
@@ -312,7 +312,7 @@ final class BigSeq extends TreeSeq {
       newLeft = inLeft == left.length ? left : slice(left, off, left.length);
       mid1 = mid;
     } else {
-      final Item[] head = ((LeafNode) mid.head()).values;
+      final Item[] head = ((LeafNode) mid.head()).values();
       if(inLeft == 0) {
         newLeft = head;
       } else {
@@ -329,7 +329,7 @@ final class BigSeq extends TreeSeq {
       newMiddle = mid1;
       newRight = inRight == right.length ? right : slice(right, 0, inRight);
     } else if(!mid1.isEmpty()) {
-      final Item[] last = ((LeafNode) mid1.last()).values;
+      final Item[] last = ((LeafNode) mid1.last()).values();
       newMiddle = mid1.init();
       if(inRight == 0) {
         newRight = last;

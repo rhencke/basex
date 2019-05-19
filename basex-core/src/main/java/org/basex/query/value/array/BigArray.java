@@ -126,7 +126,7 @@ final class BigArray extends XQArray {
     }
 
     // merge right digit with last node
-    final Value[] ls = ((LeafNode) middle.last()).values, rs = right;
+    final Value[] ls = ((LeafNode) middle.last()).values(), rs = right;
     final int ll = ls.length, rl = rs.length, n = ll + rl - 1;
     final Value[] newRight = new Value[n];
     Array.copy(ls, ll, newRight);
@@ -161,7 +161,7 @@ final class BigArray extends XQArray {
     }
 
     // merge left digit with first node
-    final Value[] ls = left, rs = ((LeafNode) middle.head()).values;
+    final Value[] ls = left, rs = ((LeafNode) middle.head()).values();
     final int ll = ls.length, rl = rs.length, n = ll - 1 + rl;
     final Value[] newLeft = new Value[n];
     Array.copyToStart(ls, 1, ll - 1, newLeft);
@@ -302,7 +302,7 @@ final class BigArray extends XQArray {
       }
 
       // extract a new left digit from the middle
-      final Value[] head = ((LeafNode) middle.head()).values;
+      final Value[] head = ((LeafNode) middle.head()).values();
       final int r = head.length, n = l - 1 + r;
 
       if(r > MIN_LEAF) {
@@ -347,7 +347,7 @@ final class BigArray extends XQArray {
       }
 
       // extract a new right digit from the middle
-      final Value[] last = ((LeafNode) middle.last()).values;
+      final Value[] last = ((LeafNode) middle.last()).values();
       final int l = last.length, n = l + r - 1;
 
       if(l > MIN_LEAF) {
@@ -495,7 +495,7 @@ final class BigArray extends XQArray {
       newLeft = inLeft == left.length ? left : slice(left, off, left.length);
       mid1 = mid;
     } else {
-      final Value[] head = ((LeafNode) mid.head()).values;
+      final Value[] head = ((LeafNode) mid.head()).values();
       if(inLeft == 0) {
         newLeft = head;
       } else {
@@ -512,7 +512,7 @@ final class BigArray extends XQArray {
       newMiddle = mid1;
       newRight = inRight == right.length ? right : slice(right, 0, inRight);
     } else if(!mid1.isEmpty()) {
-      final Value[] last = ((LeafNode) mid1.last()).values;
+      final Value[] last = ((LeafNode) mid1.last()).values();
       newMiddle = mid1.init();
       if(inRight == 0) {
         newRight = last;
