@@ -29,6 +29,8 @@ public enum Annotation {
   _BASEX_LAZY("lazy()", arg(), BASEX_URI),
   /** XQuery annotation. */
   _BASEX_INLINE("inline([limit])", arg(ITR), BASEX_URI),
+  /** XQuery annotation. */
+  _BASEX_UNROLL("unroll([limit])", arg(ITR), BASEX_URI),
 
   /** XQuery annotation. */
   _INPUT_CSV("csv(option[,...])", arg(STR), INPUT_URI),

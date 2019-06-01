@@ -1,9 +1,13 @@
 package org.basex.query.func.fn;
 
+import org.basex.core.MainOptions;
 import org.basex.query.*;
+import org.basex.query.ann.Ann;
+import org.basex.query.ann.Annotation;
 import org.basex.query.expr.*;
 import org.basex.query.func.*;
 import org.basex.query.iter.*;
+import org.basex.query.util.list.AnnList;
 import org.basex.query.value.*;
 import org.basex.query.value.item.*;
 
@@ -43,9 +47,29 @@ public final class FnFoldLeft extends StandardFunc {
     return res.iter();
   }
 
+
+  /**
+   * Checks if unrolling conditions are given.
+   * @param cc compilation context
+   * @param anns annotations
+   * @param expr expression
+   * @return result of check
+   */
+  private static boolean unroll(final CompileContext cc, final AnnList anns, final Expr expr) {
+    Ann ann = anns.get(Annotation._BASEX_UNROLL);
+    final long limit;
+    if (ann == null) {
+      limit = cc.qc.context.options.get(MainOptions.UNROLLLIMIT);
+    } else {
+      final Item[] args1 = ann.args();
+      limit = args1.length > 0 ? ((ANum) args1[0]).itr() : Long.MAX_VALUE;
+    }
+    return expr.size() < limit;
+  }
+
   @Override
   protected Expr opt(final CompileContext cc) throws QueryException {
-    if(allAreValues() && exprs[0].size() < FnForEach.UNROLL_LIMIT) {
+    if(allAreValues() && unroll(cc, ((FuncItem)exprs[2]).annotations(), exprs[0])) {
       // unroll the loop
       final Value seq = (Value) exprs[0];
       Expr e = exprs[1];

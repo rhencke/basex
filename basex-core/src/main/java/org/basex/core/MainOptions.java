@@ -125,6 +125,8 @@ public final class MainOptions extends Options {
   public static final StringOption BINDINGS = new StringOption("BINDINGS", "");
   /** Flag for the size limit on inlineable functions. */
   public static final NumberOption INLINELIMIT = new NumberOption("INLINELIMIT", 100);
+  /** Flag for the loop limit on unrollable functions. */
+  public static final NumberOption UNROLLLIMIT = new NumberOption("UNROLLLIMIT", 10);
   /** Flag for tail-call optimization. */
   public static final NumberOption TAILCALLS = new NumberOption("TAILCALLS", 256);
   /** Favor global database when opening resources. */
